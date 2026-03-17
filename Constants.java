@@ -25,10 +25,10 @@ public final class Constants {
   public static final class DriveConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
-    public static final double kMaxSpeedMetersPerSecond = 1;
-    //public static final double kMaxSpeedMetersPerSecond = 4.8;
-    public static final double kMaxAngularSpeed = 1 * Math.PI; // radians per second
-    //public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
+    //public static final double kMaxSpeedMetersPerSecond = 1;
+    public static final double kMaxSpeedMetersPerSecond = 4.8;
+    //public static final double kMaxAngularSpeed = 1 * Math.PI; // radians per second
+    public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
 
     // Chassis configuration
     public static final double kTrackWidth = Units.inchesToMeters(25);
@@ -109,12 +109,12 @@ public final class Constants {
     public static final double kLauncherMotorStop = 0.0;
   }
 
-    public static final class FunLauncherConstants {
+    /**public static final class FunLauncherConstants {
     public static final int kLauncherMotorCanID = 18;
     public static final double kLauncherMotor = 1;
     public static final double kLauncherMotorClear = -.5;
     public static final double kLauncherMotorStop = 0.0;
-  }
+  } */
 
   public static final class LoaderConstants {
     public static final int kLoaderMotorCanID = 19;

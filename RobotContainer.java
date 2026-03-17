@@ -15,16 +15,16 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Commands.ClearFeederCommand;
 import frc.robot.Commands.ClearLauncherCommand;
 import frc.robot.Commands.ClearLoaderCommand;
 import frc.robot.Commands.ClimbCommand;
+import frc.robot.Commands.DeployCommand;
 import frc.robot.Commands.DropCommand;
-import frc.robot.Commands.FunLaunchCommand;
 import frc.robot.Commands.LoadCommand;
-import frc.robot.Commands.RefuelCommand;
+//import frc.robot.Commands.RefuelCommand;
 import frc.robot.Commands.RetractCommand;
 import frc.robot.Commands.ScoreCommand;
 import frc.robot.Constants.AutoConstants;
@@ -34,7 +34,6 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DeploySubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
-import frc.robot.subsystems.FunLauncherSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.LoaderSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -46,8 +45,8 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 import java.util.List;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
+//import com.pathplanner.lib.auto.AutoBuilder;
+//import com.pathplanner.lib.auto.NamedCommands;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -63,7 +62,6 @@ public class RobotContainer {
   private final FeederSubsystem m_feederSubsystem = new FeederSubsystem();
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final DeploySubsystem m_deploySubsystem = new DeploySubsystem();
-  private final FunLauncherSubsystem m_funLauncherSubsystem = new FunLauncherSubsystem();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -72,16 +70,16 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
 
-   private final SendableChooser<Command> autoChooser;
+   //private final SendableChooser<Command> autoChooser;
 
   public RobotContainer() {
 
-    NamedCommands.registerCommand("RefuelCommand", new RefuelCommand(m_deploySubsystem, m_loaderSubsystem));
+    /**NamedCommands.registerCommand("RefuelCommand", new RefuelCommand(m_deploySubsystem, m_loaderSubsystem));
     NamedCommands.registerCommand("ScoreCommand", new ScoreCommand(m_feederSubsystem, m_launcherSubsystem));
     NamedCommands.registerCommand("ClimbCommand", new ClimbCommand(m_climberSubsystem));
     
     autoChooser = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+    SmartDashboard.putData("Auto Chooser", autoChooser);*/
 
     // Configure the button bindings
     configureButtonBindings();
@@ -119,18 +117,18 @@ public class RobotContainer {
             () -> m_robotDrive.zeroHeading(),
             m_robotDrive));
 
-    new JoystickButton(m_driverController,5).whileTrue(new ClimbCommand(m_climberSubsystem));
+    new JoystickButton(m_driverController, 5).whileTrue(new ClimbCommand(m_climberSubsystem));
     new JoystickButton(m_driverController, 6).whileTrue(new DropCommand(m_climberSubsystem));
     new JoystickButton(m_driverController, 1).toggleOnTrue(new ScoreCommand(m_feederSubsystem, m_launcherSubsystem));
-    new JoystickButton(m_driverController, 2).toggleOnTrue(new RefuelCommand(m_deploySubsystem, m_loaderSubsystem));
+    new JoystickButton(m_driverController, 2).whileTrue(new DeployCommand(m_deploySubsystem));
+    //new JoystickButton(m_driverController, 2).toggleOnTrue(new RefuelCommand(m_deploySubsystem, m_loaderSubsystem));
     new JoystickButton(m_driverController, 3).whileTrue(new RetractCommand(m_deploySubsystem));
-    new JoystickButton(m_driverController, 4).whileTrue(new LoadCommand(m_loaderSubsystem));
+    new JoystickButton(m_driverController, 4).toggleOnTrue(new LoadCommand(m_loaderSubsystem));
 
     new POVButton(m_driverController, 0).whileTrue(new ClearLauncherCommand(m_launcherSubsystem));
     new POVButton(m_driverController, 90).whileTrue(new ClearFeederCommand(m_feederSubsystem));
     new POVButton(m_driverController, 180).whileTrue(new ClearLoaderCommand(m_loaderSubsystem));
-    new POVButton(m_driverController, 270).whileTrue(new FunLaunchCommand(m_funLauncherSubsystem));
-    
+     
 }
 
   /**
